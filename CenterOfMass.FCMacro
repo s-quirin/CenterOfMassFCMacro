@@ -489,6 +489,9 @@ class CenterofmassWidget(QtGui.QWidget):
         totalGroupBox.setLayout(totalLayout)
         layout.addWidget(totalGroupBox)
 
+        qApp = QtGui.QApplication.instance()
+        qApp.focusChanged.connect(self.on_focusChanged)    # emits on each focus change in FreeCAD
+
     def init_solids(self, objs):
         """Construct new items and compute"""
         self.find_all_centerOfMass(objs)
@@ -500,8 +503,6 @@ class CenterofmassWidget(QtGui.QWidget):
             )
         self.mainGroupBox.setTitle('Selected solids: ' + str(self.solid_count))
         self.compute_centerOfMass()
-        qApp = QtGui.QApplication.instance()
-        qApp.focusChanged.connect(self.on_focusChanged)    # emits on each focus change in FreeCAD
 
     def on_focusChanged(self, oldWidget, nowWidget):
         """Toggle appearance of solid being edited"""
