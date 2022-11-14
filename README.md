@@ -1,6 +1,6 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/s-quirin/CenterOfMassFCMacro)
 ![GitHub Release Date](https://img.shields.io/github/release-date/s-quirin/CenterOfMassFCMacro)
-![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/s-quirin/CenterOfMassFCMacro/v0.5.8)
+![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/s-quirin/CenterOfMassFCMacro/v0.6.0)
 
 # CenterOfMass
 ## A Macro for FreeCAD
