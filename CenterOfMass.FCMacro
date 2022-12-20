@@ -12,8 +12,8 @@
 # Options:
 # * Color the solids according to density.
 # * Display where is the center of mass.
-# * Export and import densities (even if it's not a .csv file from the macro,
-#  as soon as there is a column named "Density").
+# * Export and import masses, materials and densities (even if it's not a .csv
+#  file from the macro, as soon as there is a column named accordingly).
 # * Save densities in the document (remove them again when setting material
 #  to "default")
 #
@@ -26,7 +26,7 @@ __Name__ = 'CenterOfMass'
 __Comment__ = 'Compute and show the center of mass for multiple solids'
 __Author__ = 'chupins, s-quirin'
 __Version__ = '0.7'
-__Date__ = '2022-12-08'
+__Date__ = '2022-12-19'
 __License__ = 'LGPL-3.0-or-later'
 __Web__ = 'https://forum.freecadweb.org/viewtopic.php?f=24&t=31883'
 __Wiki__ = 'https://www.freecadweb.org/wiki/Macro_CenterOfMass'
@@ -390,7 +390,7 @@ class CenterofmassWidget(QtGui.QWidget):
         export.clicked.connect(self.on_pushButton_Export)
 
         readDensities = QtGui.QPushButton('Import')
-        readDensities.setToolTip('Import densities from a .csv file')
+        readDensities.setToolTip('Import masses, materials or densities from a file')
         readDensities.setIcon(QtGui.QIcon(':/icons/Std_Import.svg'))
         readDensities.setIconSize(g_icon_size)
         readDensities.clicked.connect(self.on_pushButton_Import)
@@ -814,6 +814,8 @@ class CenterofmassWidget(QtGui.QWidget):
         for sol in range(self.solid_count):
             volumeInUnit = self.convert_volume(self.volumes[sol])
             self.masses[sol] = volumeInUnit * self.solids[sol].spinDens.value()
+            if self.masses[sol] == 0:
+                continue
             self.massTot += self.masses[sol]
             self.volTot += volumeInUnit
         if self.massTot == 0:
@@ -1127,18 +1129,18 @@ class CenterofmassWidget(QtGui.QWidget):
             else:
                 continue
 
-            if col['densit'] and row[col['densit']]:
-                qty = row[col['densit']] + ' ' + unitForD
-                selfsol.spinDens.setValue(Units.Quantity(qty).getValueAs(self.unitForD))
-                loaded[sol] = True
-            if col['material'] and selfsol.combo.findText(row[col['material']]) > -1:
-                selfsol.combo.setCurrentText(row[col['material']])
-                loaded[sol] = True
             if col['mass'] and row[col['mass']]:
                 qty = row[col['mass']] + ' ' + unitForM
                 qty_qty = Units.Quantity(qty).getValueAs(self.unitForM)
                 selfsol.spinMass.setText('%.3e' % qty_qty)
                 selfsol.on_spinMass_edited()    # trigger update
+                loaded[sol] = True
+            elif col['material'] and selfsol.combo.findText(row[col['material']]) > -1:
+                selfsol.combo.setCurrentText(row[col['material']])
+                loaded[sol] = True
+            elif col['densit'] and row[col['densit']]:
+                qty = row[col['densit']] + ' ' + unitForD
+                selfsol.spinDens.setValue(Units.Quantity(qty).getValueAs(self.unitForD))
                 loaded[sol] = True
         self.compute_centerOfMass(True)
 
