@@ -1,6 +1,6 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/s-quirin/CenterOfMassFCMacro)
 ![GitHub Release Date](https://img.shields.io/github/release-date/s-quirin/CenterOfMassFCMacro)
-![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/s-quirin/CenterOfMassFCMacro/v0.6.0)
+![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/s-quirin/CenterOfMassFCMacro/v0.7.0)
 
 # CenterOfMass
 ## A Macro for FreeCAD
@@ -18,10 +18,9 @@ Compute and show the center of mass for multiple solids
 ## Options:
 * Color the solids according to density.
 * Display where is the center of mass.
-* Import densities (even if it's not a .csv file from the macro, as soon as
-  there is a column named "Density").
-* Save densities in the document or export to a csv-file
+* Export and import masses, materials and densities (even if it's not a .csv file from the macro, as soon as there is a column named accordingly).
+* Save densities in the document (remove them again when setting material to "default").
 
 ## Credits:
-* 2018 – present: [schupin](https://github.com/chupins)
+* 2018 - 2022: [schupin](https://github.com/chupins)
 * 2022 – present: SyProLei project (Saarland University)
